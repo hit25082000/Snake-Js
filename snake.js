@@ -14,7 +14,7 @@ function mapearElementos() {
     table.style.textAlign = "center"
     table.style.width = "100%"
     table.style.height = "100%"
-    body.style.height = "100vh"
+    body.style.height = "95vh"
     body.style.margin = "none"
     body.append(table)
 
@@ -73,8 +73,8 @@ document.addEventListener("keydown", (event) => {
 })
 
 function snake() {
-    matriz[matriz.length / 2][matriz.length / 2] = `<img src="icons8-snake-64.png">`
-    for (let i = 1; i <= matriz.length;) {
+    matriz[matriz.length / 2][matriz.length / 2] = `<img width="30px" src="icons8-snake-64.png">`
+    for (let i = 1; i <= matriz.length; i++) {
 
     }
 }
