@@ -13,7 +13,7 @@ let table = document.createElement("table")
 areaMatriz()
 
 function mapearElementos() {
-    matriz[xSnake][ySnake] = `<img width="32px" src="icons8-snake-64.png">`
+    matriz[xSnake][ySnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.style.textAlign = "center"
     table.style.width = "100%"
     table.style.height = "100%"
@@ -26,7 +26,7 @@ function mapearElementos() {
         let yComida = comida()
 
         if (matriz[xComida][yComida] == undefined)
-            matriz[xComida][yComida] = `<img width="32px" src="icons8-animal-de-rato-24.png">`
+            matriz[xComida][yComida] = `<img width="32px" src="images/icons8-animal-de-rato-24.png">`
         else
             i--
     }
@@ -37,7 +37,7 @@ function mapearElementos() {
         let yPedra = pedra()
 
         if (matriz[xPedra][yPedra] == undefined)
-            matriz[xPedra][yPedra] = `<img src="icons8-rocha-32.png">`
+            matriz[xPedra][yPedra] = `<img src="images/icons8-rocha-32.png">`
         else
             i--
     }
@@ -46,16 +46,18 @@ function mapearElementos() {
 
 function atualizarCoordenadas(direcao) {
     snake.push([ySnake, xSnake])
+
+    if (direcao) {
+        if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`)
+            snake[0].unshift(snake[0][0], snake[0][1])
+        else if (matriz[ySnake][xSnake] == `<img src="icons8-rocha-32.png">`)
+            matriz[snake[0][0]][snake[0][1]] = ``, snake[0].shift(), matriz[snake[0][0]][snake[0][1]] = ``, snake[0].shift()
+        else
+            matriz[snake[0][0]][snake[0][1]] = ``, snake.shift()
+    }
+
     console.log(snake)
-
-    if (matriz[ySnake][xSnake] == `<img width="32px" src="icons8-animal-de-rato-24.png">`)
-        snake[0].unshift(snake[0][0], snake[0][1])
-    else if (matriz[ySnake][xSnake] == `<img src="icons8-rocha-32.png">`)
-        matriz[snake[0][0]][snake[0][1]] = ``, snake.shift()
-    else
-        matriz[snake[0][0]][snake[0][1]] = ``
-
-    matriz[ySnake][xSnake] = `<img width="32px" src="icons8-snake-64.png">`
+    matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.innerHTML = ""
 
     for (let x = 0; x < matriz.length; x++) {
@@ -85,13 +87,13 @@ function areaMatriz() {
 
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowUp" && direcao != "baixo")
-        direcao = "cima", ySnake--, atualizarCoordenadas(direcao), snake.shift()
+        direcao = "cima", ySnake--, atualizarCoordenadas(direcao)
     if (event.key == "ArrowDown" && direcao != "cima")
-        direcao = "baixo", ySnake++, atualizarCoordenadas(direcao), snake.shift()
+        direcao = "baixo", ySnake++, atualizarCoordenadas(direcao)
     if (event.key == "ArrowLeft" && direcao != "direita")
-        direcao = "esquerda", xSnake--, atualizarCoordenadas(direcao), snake.shift()
+        direcao = "esquerda", xSnake--, atualizarCoordenadas(direcao)
     if (event.key == "ArrowRight" && direcao != "esquerda")
-        direcao = "direita", xSnake++, atualizarCoordenadas(direcao), snake.shift()
+        direcao = "direita", xSnake++, atualizarCoordenadas(direcao)
 })
 
 mapearElementos()
