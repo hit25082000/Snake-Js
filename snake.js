@@ -50,8 +50,10 @@ function atualizarCoordenadas(direcao) {
     if (direcao) {
         if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`)
             snake[0].unshift(snake[0][0], snake[0][1])
-        else if (matriz[ySnake][xSnake] == `<img src="icons8-rocha-32.png">`)
-            matriz[snake[0][0]][snake[0][1]] = ``, snake[0].shift(), matriz[snake[0][0]][snake[0][1]] = ``, snake[0].shift()
+        else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`)
+            matriz[snake[0][0]][snake[0][1]] = ``, snake.shift(), matriz[snake[0][0]][snake[0][1]] = ``, snake.shift()
+        else if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-snake-64.png">`)
+            matriz[snake[0][0]][snake[0][1]] = ``, snake.shift(), matriz[snake[0][0]][snake[0][1]] = ``, snake.shift()
         else
             matriz[snake[0][0]][snake[0][1]] = ``, snake.shift()
     }
