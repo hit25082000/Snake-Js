@@ -89,7 +89,7 @@ function atualizarCoordenadas(direcao) {
         if (contagemComida == 3)
             snake[0].unshift(snake[0][0], snake[0][1]), contagemComida = 0
         else if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`)
-            contagemComida++, comidasComidas++, matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
+            contagemComida++, comidasComidas++, console.log(comidasComidas), matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
         else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`)
             matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift(), matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
         else
@@ -107,7 +107,7 @@ function atualizarCoordenadas(direcao) {
     map.Mapa()
 }
 
-setInterval(() => {
+setInterval(() => {//fazer teclas mudarem apenas a direção para implementar auto-walk
     if (direcao == "cima")
         document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' }));
 
@@ -128,7 +128,6 @@ window.onload = alert("voçe tem 3 minutos")
 intervalo = window.setInterval(function () {
     if (s == 60) { m++; s = 0; }
     s++;
-    console.log(m, s)
     if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
 }, 1000);
 
