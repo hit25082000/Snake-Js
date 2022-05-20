@@ -131,6 +131,8 @@ intervalo = window.setInterval(function () {
     console.log(m, s)
 }, 1000);
 
+if (m == 3) alert("Ganhou"), window.location.href = window.location.href
+
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowUp" && direcao != "baixo")
         direcao = "cima", ySnake--, atualizarCoordenadas(direcao)
