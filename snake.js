@@ -97,9 +97,9 @@ function atualizarCoordenadas(direcao) {
     }
 
     if (snake.length == 0)
-        alert("Game Over"), window.location.href = window.location.href
+        window.location.href = window.location.href, alert("Game Over")
     if (comidasComidas == 14)
-        alert("Ganhou"), window.location.href = window.location.href
+        window.location.href = window.location.href, alert("Ganhou")
 
     matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.innerHTML = ""
@@ -129,9 +129,9 @@ intervalo = window.setInterval(function () {
     if (s == 60) { m++; s = 0; }
     s++;
     console.log(m, s)
+    if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
 }, 1000);
 
-if (m == 3) alert("Ganhou"), window.location.href = window.location.href
 
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowUp" && direcao != "baixo")
