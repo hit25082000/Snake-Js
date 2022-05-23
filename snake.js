@@ -7,14 +7,24 @@ let ySnake = 5
 let contagemComida = 0;
 let comidasComidas = 0;
 let snake = []
-var comida = () => { return Math.floor(Math.random() * 10); }
-var pedra = () => { return Math.floor(Math.random() * 10); }
+var random = () => { return Math.floor(Math.random() * 10); }
+
+let randomDirect = random()
+console.log(randomDirect)
+if (randomDirect <= 2)
+    direcao = "cima"
+else if (randomDirect <= 5)
+    direcao = "baixo"
+else if (randomDirect <= 7)
+    direcao = "esquerda"
+else if (randomDirect <= 9)
+    direcao = "direita"
 
 const map = {
     Comidas(quantidadeComidas) {
         for (let i = 0; i < quantidadeComidas; i++) {
-            let xComida = comida()
-            let yComida = comida()
+            let xComida = random()
+            let yComida = random()
 
             if (matriz[xComida][yComida] == undefined)
                 matriz[xComida][yComida] = `<img width="32px" src="images/icons8-animal-de-rato-24.png">`
@@ -26,8 +36,8 @@ const map = {
     Pedras(quantidadePedras) {
         for (let i = 0; i < quantidadePedras; i++) {
 
-            let xPedra = pedra()
-            let yPedra = pedra()
+            let xPedra = random()
+            let yPedra = random()
 
             if (matriz[xPedra][yPedra] == undefined)
                 matriz[xPedra][yPedra] = `<img src="images/icons8-rocha-32.png">`
@@ -88,23 +98,21 @@ function atualizarCoordenadas(direcao) {
 
     snake.push([ySnake, xSnake])
 
-    if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`) {
+    if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`) {//Conta quantidade comida
         comidasComidas++
         contagemComida++
         matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
     }
-    else if (contagemComida == 3) {
+    else if (contagemComida == 3) {//Adiciona uma unidade de rabo
         snake[0].unshift(snake[0][0], snake[0][1])
         contagemComida = 0
     }
-    else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`) {
+    else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`) {//Apaga uma unidade de rabo
         matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
         matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
     }
     else
-        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
-
-    console.log("comidas", comidasComidas)
+        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()//Transloca o rabo
 
     if (snake.length == 0)
         window.location.href = window.location.href, alert("Game Over")
@@ -117,7 +125,7 @@ function atualizarCoordenadas(direcao) {
     map.Mapa()
 }
 
-setInterval(() => {//fazer teclas mudarem apenas a direção para implementar auto-walk
+setInterval(() => {//auto walk
     if (direcao == "cima")
         document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' })), ySnake--, atualizarCoordenadas(direcao)
 
@@ -135,10 +143,12 @@ var s = 1;
 var m = 0;
 window.onload = alert("voçe tem 3 minutos")
 intervalo = window.setInterval(function () {
+    let tempoHtml = document.querySelector(".tempo")
     if (s == 60) { m++; s = 0; }
     s++;
     if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
-    console.log("Tempo: ", m, s)
+    tempoHtml.style.position = "absolute"
+    tempoHtml.innerHTML = `Tempo: ${m}:${s}`
 }, 1000);
 
 document.addEventListener("keydown", (event) => {
