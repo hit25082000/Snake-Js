@@ -58,11 +58,16 @@ const map = {
             for (let y = 0; y < matriz.length; y++) {
                 let td = document.createElement("td")
 
+
+
                 if (matriz[x][y] != undefined)
                     td.innerHTML = matriz[x][y]
 
                 else if (matriz[x][y] == undefined)
                     td.innerHTML = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`
+
+                if (td.innerHTML == `<img width="32px" src="images/icons8-snake-64.png">`)
+                    td.style.backgroundColor = "DarkGreen"
 
                 td.style.height = "50px"
                 tr.appendChild(td)
@@ -95,6 +100,7 @@ function atualizarCoordenadas(direcao) {
         else
             matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
     }
+    console.log("comidas", comidasComidas)
 
     if (snake.length == 0)
         window.location.href = window.location.href, alert("Game Over")
@@ -104,22 +110,24 @@ function atualizarCoordenadas(direcao) {
     matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.innerHTML = ""
 
+
+
     map.Mapa()
 }
 
 setInterval(() => {//fazer teclas mudarem apenas a direção para implementar auto-walk
     if (direcao == "cima")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' }));
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' })), ySnake--, atualizarCoordenadas(direcao)
 
     if (direcao == "baixo")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowDown' }));
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowDown' })), ySnake++, atualizarCoordenadas(direcao)
 
     if (direcao == "esquerda")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowLeft' }));
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowLeft' })), xSnake--, atualizarCoordenadas(direcao)
 
     if (direcao == "direita")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowRight' }));
-}, 1000);
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowRight' })), xSnake++, atualizarCoordenadas(direcao)
+}, 300);
 
 
 var s = 1;
@@ -129,21 +137,22 @@ intervalo = window.setInterval(function () {
     if (s == 60) { m++; s = 0; }
     s++;
     if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
+    console.log(m, s)
 }, 1000);
 
 
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowUp" && direcao != "baixo")
-        direcao = "cima", ySnake--, atualizarCoordenadas(direcao)
+        direcao = "cima"
 
     if (event.key == "ArrowDown" && direcao != "cima")
-        direcao = "baixo", ySnake++, atualizarCoordenadas(direcao)
+        direcao = "baixo"
 
     if (event.key == "ArrowLeft" && direcao != "direita")
-        direcao = "esquerda", xSnake--, atualizarCoordenadas(direcao)
+        direcao = "esquerda"
 
     if (event.key == "ArrowRight" && direcao != "esquerda")
-        direcao = "direita", xSnake++, atualizarCoordenadas(direcao)
+        direcao = "direita"
 })
 
 const App = {
