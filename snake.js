@@ -58,8 +58,6 @@ const map = {
             for (let y = 0; y < matriz.length; y++) {
                 let td = document.createElement("td")
 
-
-
                 if (matriz[x][y] != undefined)
                     td.innerHTML = matriz[x][y]
 
@@ -90,27 +88,31 @@ function atualizarCoordenadas(direcao) {
 
     snake.push([ySnake, xSnake])
 
-    if (direcao) {
-        if (contagemComida == 3)
-            snake[0].unshift(snake[0][0], snake[0][1]), contagemComida = 0
-        else if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`)
-            contagemComida++, comidasComidas++, console.log(comidasComidas), matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
-        else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`)
-            matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift(), matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
-        else
-            matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
+    if (matriz[ySnake][xSnake] == `<img width="32px" src="images/icons8-animal-de-rato-24.png">`) {
+        comidasComidas++
+        contagemComida++
+        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
     }
+    else if (contagemComida == 3) {
+        snake[0].unshift(snake[0][0], snake[0][1])
+        contagemComida = 0
+    }
+    else if (matriz[ySnake][xSnake] == `<img src="images/icons8-rocha-32.png">`) {
+        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
+        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
+    }
+    else
+        matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()
+
     console.log("comidas", comidasComidas)
 
     if (snake.length == 0)
         window.location.href = window.location.href, alert("Game Over")
-    if (comidasComidas == 14)
+    if (comidasComidas == 15)
         window.location.href = window.location.href, alert("Ganhou")
 
     matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.innerHTML = ""
-
-
 
     map.Mapa()
 }
@@ -129,7 +131,6 @@ setInterval(() => {//fazer teclas mudarem apenas a direção para implementar au
         document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowRight' })), xSnake++, atualizarCoordenadas(direcao)
 }, 300);
 
-
 var s = 1;
 var m = 0;
 window.onload = alert("voçe tem 3 minutos")
@@ -137,9 +138,8 @@ intervalo = window.setInterval(function () {
     if (s == 60) { m++; s = 0; }
     s++;
     if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
-    console.log(m, s)
+    console.log("Tempo: ", m, s)
 }, 1000);
-
 
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowUp" && direcao != "baixo")
