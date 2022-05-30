@@ -20,7 +20,7 @@ else if (randomDirect <= 5)
 else if (randomDirect <= 7)
     direcao = "esquerda"
 else if (randomDirect <= 9)
-    direcao = "cima"
+    direcao = "direita"
 
 const map = {
     Comidas(quantidadeComidas) {
@@ -129,12 +129,12 @@ function atualizarCoordenadas(direcao) {
 
 var s = 1;
 var m = 0;
-window.onload = alert("voçe tem 3 minutos")
+window.onload = alert("voçe tem 1 minutos")
 intervalo = window.setInterval(function () {
     let tempoHtml = document.querySelector(".tempo")
     if (s == 60) { m++; s = 0; }
     s++;
-    if (m == 3) window.location.href = window.location.href, alert("Acabou o tempo")
+    if (m == 1) window.location.href = window.location.href, alert("Acabou o tempo")
     tempoHtml.style.position = "absolute"
     tempoHtml.innerHTML = `Tempo: ${m}:${s}`
 }, 1000);
