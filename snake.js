@@ -11,6 +11,7 @@ let direcionado = 0;
 var random = () => { return Math.floor(Math.random() * 10); }
 
 let randomDirect = random()
+
 console.log(randomDirect)
 if (randomDirect <= 2)
     direcao = "cima"
@@ -19,7 +20,7 @@ else if (randomDirect <= 5)
 else if (randomDirect <= 7)
     direcao = "esquerda"
 else if (randomDirect <= 9)
-    direcao = "direita"
+    direcao = "cima"
 
 const map = {
     Comidas(quantidadeComidas) {
