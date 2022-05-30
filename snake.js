@@ -7,6 +7,7 @@ let ySnake = 5
 let contagemComida = 0;
 let comidasComidas = 0;
 let snake = []
+let direcionado = 0;
 var random = () => { return Math.floor(Math.random() * 10); }
 
 let randomDirect = random()
@@ -114,30 +115,16 @@ function atualizarCoordenadas(direcao) {
     else
         matriz[snake[0][0]][snake[0][1]] = `&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`, snake.shift()//Transloca o rabo
 
+
+    matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     if (snake.length == 0)
         window.location.href = window.location.href, alert("Game Over")
     if (comidasComidas == 15)
         window.location.href = window.location.href, alert("Ganhou")
-
-    matriz[ySnake][xSnake] = `<img width="32px" src="images/icons8-snake-64.png">`
     table.innerHTML = ""
 
     map.Mapa()
 }
-
-setInterval(() => {//auto walk
-    if (direcao == "cima")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' })), ySnake--, atualizarCoordenadas(direcao)
-
-    if (direcao == "baixo")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowDown' })), ySnake++, atualizarCoordenadas(direcao)
-
-    if (direcao == "esquerda")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowLeft' })), xSnake--, atualizarCoordenadas(direcao)
-
-    if (direcao == "direita")
-        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowRight' })), xSnake++, atualizarCoordenadas(direcao)
-}, 300);
 
 var s = 1;
 var m = 0;
@@ -151,18 +138,37 @@ intervalo = window.setInterval(function () {
     tempoHtml.innerHTML = `Tempo: ${m}:${s}`
 }, 1000);
 
+setInterval(() => {//auto walk
+
+    if (direcao == "cima")
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowUp' })), ySnake--, atualizarCoordenadas(direcao)
+
+    if (direcao == "baixo")
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowDown' })), ySnake++, atualizarCoordenadas(direcao)
+
+    if (direcao == "esquerda")
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowLeft' })), xSnake--, atualizarCoordenadas(direcao)
+
+    if (direcao == "direita")
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': 'ArrowRight' })), xSnake++, atualizarCoordenadas(direcao)
+    direcionado = 0
+
+}, 300);
+
 document.addEventListener("keydown", (event) => {
-    if (event.key == "ArrowUp" && direcao != "baixo")
-        direcao = "cima"
+    if (direcionado == 0) {
+        if (event.key == "ArrowUp" && direcao != "baixo")
+            direcao = "cima", direcionado = 1
 
-    if (event.key == "ArrowDown" && direcao != "cima")
-        direcao = "baixo"
+        if (event.key == "ArrowDown" && direcao != "cima")
+            direcao = "baixo", direcionado = 1
 
-    if (event.key == "ArrowLeft" && direcao != "direita")
-        direcao = "esquerda"
+        if (event.key == "ArrowLeft" && direcao != "direita")
+            direcao = "esquerda", direcionado = 1
 
-    if (event.key == "ArrowRight" && direcao != "esquerda")
-        direcao = "direita"
+        if (event.key == "ArrowRight" && direcao != "esquerda")
+            direcao = "direita", direcionado = 1
+    }
 })
 
 const App = {
